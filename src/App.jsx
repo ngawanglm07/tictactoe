@@ -4,41 +4,46 @@ import Board from "./components/Board"
 import React, { useState } from 'react'
 import { calculateWinner } from "./winner"
 import StatusMessage from "./components/StatusMessage"
+import History from "./components/History"
 
 function App() {
-  const [squares , setSquares] = useState(Array(9).fill(null));
-  const [ isXNext , setisXNext] = useState(false);
-  const winner =  calculateWinner(squares);
+
+  const [history , setHistory] = useState([{squares : Array(9).fill(null), isXNext:false}])
+  const [ currentMove , setCurrentMove] = useState(0);
+
+  const gamingBoard = history[currentMove];
+
+  const winner =  calculateWinner(gamingBoard.squares);
+  console.log({history,currentMove}); 
  
-
   const handleSquareClick =  clickedPosition => {
-
-    if(squares[clickedPosition] || winner) {
+  
+    if(gamingBoard.squares[clickedPosition] || winner) {
       return ;
     }
      
-  setSquares(currentSquares => {
-    return currentSquares.map((squareValue , position) => {
+  setHistory(currentHistory => {
+    const lastGamingState = currentHistory[currentHistory.length - 1];
+
+
+    const nextSquaresState = lastGamingState.squares.map((squareValue , position) => {
         if(clickedPosition === position){
-            return isXNext ? 'X' : 'O';
+            return lastGamingState.isXNext ? 'X' : 'O';
         }
         return squareValue;
     })
-    
+    return currentHistory.concat({ squares: nextSquaresState, isXNext: !lastGamingState.isXNext})
   });
-  setisXNext((currentisXnext) => !currentisXnext);
+ setCurrentMove(move => move + 1);
 
   }
-
-
-
   return (
   <div className="app">
  
-  <StatusMessage winner={winner} isXNext={isXNext} squares={squares}/>
-   <Board squares={squares} handleSquareClick={handleSquareClick}/>
+  <StatusMessage winner={winner} gamingBoard={gamingBoard} />
+   <Board squares={gamingBoard.squares} handleSquareClick={handleSquareClick}/>
+   <History history={history}/> 
   </div>
   )
 }
-
 export default App

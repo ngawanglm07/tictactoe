@@ -1,12 +1,14 @@
 import { render } from "react-dom";
 
-const StatusMessage = ({winner , isXNext , squares}) => {
+const StatusMessage = ({winner , gamingBoard}) => {
+
+    const { squares , isXNext} =  gamingBoard;
     const noMovesLeft =  squares.every(squareValue => squareValue !== null)
     const nextPlayer = isXNext ? 'X' : 'O';
   
     // const statusMessage = winner ? `Winner is ${winner}` : `Next player is ${nextPlayer}`;  
     
-    const renderStatusMessage = () =>{
+    const renderStatusMessage = () => { 
         if(winner){
              return <div> winner is 
              <span className={winner === 'X' ? 'text-green' : 'text-orange'}> {winner}</span>
@@ -26,7 +28,6 @@ const StatusMessage = ({winner , isXNext , squares}) => {
            renderStatusMessage()
          }
         </div>
-    
 }
 
 export default StatusMessage;
