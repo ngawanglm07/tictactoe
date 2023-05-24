@@ -45,8 +45,8 @@ function App() {
  
   <StatusMessage winner={winner} gamingBoard={gamingBoard} />
    <Board squares={gamingBoard.squares} handleSquareClick={handleSquareClick}/>
-   <History history={history} moveTo={moveTo}/> 
+   <History history={history} moveTo={moveTo} currentMove={currentMove}/> 
   </div>
   )
 }
-export default App
+export default App;
