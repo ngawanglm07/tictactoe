@@ -37,12 +37,15 @@ function App() {
  setCurrentMove(move => move + 1);
 
   }
+  const moveTo = move => {
+    setCurrentMove(move)
+  }
   return (
   <div className="app">
  
   <StatusMessage winner={winner} gamingBoard={gamingBoard} />
    <Board squares={gamingBoard.squares} handleSquareClick={handleSquareClick}/>
-   <History history={history}/> 
+   <History history={history} moveTo={moveTo}/> 
   </div>
   )
 }
