@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { calculateWinner } from "./winner"
 import StatusMessage from "./components/StatusMessage"
 import History from "./components/History"
+import Reset from "./components/Reset"
 
 const NEW_GAME = [{squares : Array(9).fill(null), isXNext:false}]
 
@@ -61,6 +62,7 @@ function App() {
  
   <StatusMessage winner={winner} gamingBoard={gamingBoard} />
    <Board squares={gamingBoard.squares} handleSquareClick={handleSquareClick}/>
+   <Reset moveTo={moveTo}/>
    <History history={history} moveTo={moveTo} currentMove={currentMove}/> 
   </div>
   )
