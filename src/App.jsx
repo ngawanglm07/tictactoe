@@ -23,7 +23,12 @@ function App() {
     }
      
   setHistory(currentHistory => {
-    const lastGamingState = currentHistory[currentHistory.length - 1];
+
+    const isTraversing = currentMove + 1 !== currentHistory.length;
+
+    const lastGamingState = isTraversing ?
+    currentHistory[currentMove] :
+    currentHistory[currentHistory.length - 1];
 
 
     const nextSquaresState = lastGamingState.squares.map((squareValue , position) => {
@@ -32,8 +37,17 @@ function App() {
         }
         return squareValue;
     })
-    return currentHistory.concat({ squares: nextSquaresState, isXNext: !lastGamingState.isXNext})
+  
+    const base = isTraversing 
+    ? currentHistory.slice(0,currentHistory.indexOf(lastGamingState)+ 1  )
+    : currentHistory;
+    
+    return base.concat({
+       squares: nextSquaresState,
+        isXNext: !lastGamingState.isXNext
+      })
   });
+
  setCurrentMove(move => move + 1);
 
   }
