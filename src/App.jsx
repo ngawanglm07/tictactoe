@@ -60,6 +60,7 @@ function App() {
   return (
   <div className="app">
   <h1>TIC <span className="text-green">TAC</span> TOE</h1>
+  <p className="ngawang">created by @Ngawang_lm </p>
  
   <StatusMessage winner={winner} gamingBoard={gamingBoard} />
    <Board squares={gamingBoard.squares} handleSquareClick={handleSquareClick} winningSquares={winningSquares}/>
